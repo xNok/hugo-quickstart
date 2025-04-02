@@ -1,0 +1,11 @@
+tasks:
+  - name: Install Hugo
+    init: |
+      git -c url.https://github.com/.insteadOf=git@github.com: submodule update --init --remote --recursive
+      brew install hugo
+    command: cd website && hugo server -D -F --baseURL $(gp url 1313) --liveReloadPort=443 --appendPort=false --bind=0.0.0.0
+
+# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
+ports:
+  - port: 1313
+    onOpen: open-preview
