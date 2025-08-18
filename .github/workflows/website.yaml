@@ -33,7 +33,7 @@ jobs:
       KROKI_VERSION: 0.5.0
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           submodules: recursive
           # Clone a Theme from a Private Repository
