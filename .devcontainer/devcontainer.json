@@ -1,0 +1,33 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+	"features": {
+		"ghcr.io/devcontainers/features/hugo:1": {
+      "version": "0.136.0",
+			"extended": true
+		},
+		"ghcr.io/devcontainers-contrib/features/actionlint:1": {},
+		"ghcr.io/devcontainers-contrib/features/gh-cli:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"eliostruyf.vscode-front-matter"
+			]
+		}
+	},
+  "runArgs": [
+    "--env-file", ".devcontainer/.env"
+  ],
+  "onCreateCommand": [],
+  "postStartCommand": {
+    "submodule": "git submodule update --init --recursive",
+    "hugo-server": "cd website && hugo server -D --appendPort=false --baseURL https://$CODESPACE_NAME-1313.$GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN"
+  },
+  "forwardPorts": [1313],
+  "portsAttributes": {
+    "1313": {
+      "label": "Hugo Dev Server",
+      "onAutoForward": "openBrowser"
+    }
+  }
+}
