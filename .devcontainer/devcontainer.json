@@ -1,8 +1,8 @@
 {
-  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "image": "mcr.microsoft.com/devcontainers/universal:2.9.0",
 	"features": {
 		"ghcr.io/devcontainers/features/hugo:1": {
-      "version": "0.136.0",
+      		"version": "0.136.0",
 			"extended": true
 		},
 		"ghcr.io/devcontainers-contrib/features/actionlint:1": {},
