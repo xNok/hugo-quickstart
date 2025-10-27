@@ -41,7 +41,7 @@ jobs:
           #   ${{ secrets.SSH_PRIVATE_KEY_THEME }}
 
       - name: Archive rendered images
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: images
           path: website/static/images/gallery
