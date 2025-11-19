@@ -28,13 +28,17 @@ jobs:
   # Test job
   test:
     runs-on: ubuntu-latest
-    env:
-      HUGO_VERSION: 0.136.0
     steps:
       - name: Checkout
         uses: actions/checkout@v5
         with:
           submodules: recursive
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.136.0'
+          extended: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -45,12 +49,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Hugo CLI
-        run: |
-          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
-          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "version=$(node -p "require('./package.json').devDependencies['@playwright/test']")" >> $GITHUB_OUTPUT
+
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        id: playwright-cache
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
 
       - name: Install Playwright Browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
 
       - name: Run Playwright tests
@@ -69,7 +80,6 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.136.0
       KROKI_VERSION: 0.5.0
     steps:
       - name: Checkout
@@ -90,10 +100,11 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
-      - name: Install Hugo CLI
-        run: |
-          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
-          && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.136.0'
+          extended: true
 
       - name: Build with Hugo
         env:
