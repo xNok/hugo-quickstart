@@ -2,3 +2,12 @@
 
 website/public
 website/resources
+
+# Node.js
+node_modules/
+package-lock.json
+
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
