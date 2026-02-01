@@ -76,3 +76,12 @@ To open this project in GitHub Codespaces, click the button below:
 To open this project in Gitpod, click the button below:
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/jpmorganchase/hugo-quickstart)
+
+## Render Deployment
+
+This project includes a `render.yaml` file to simplify deployment on [Render](https://render.com). This file creates a Blueprint that automatically configures the project as a static site.
+
+To deploy:
+1. Create a new [Blueprint Instance](https://dashboard.render.com/blueprints/new) on Render.
+2. Connect your repository.
+3. Render will automatically detect the `render.yaml` configuration and set up the build command (`hugo --gc --minify`) and publish directory (`website/public`).

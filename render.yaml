@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: hugo-quickstart
+    env: static
+    root: website
+    buildCommand: hugo --gc --minify
+    staticPublishPath: public
