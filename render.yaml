@@ -4,4 +4,5 @@ services:
     env: static
     root: website
     buildCommand: hugo --gc --minify
+    preDeployCommand: git submodule update --init --recursive
     staticPublishPath: public
