@@ -1,0 +1,71 @@
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+header {
+  background: #f4f4f4;
+  padding: 1rem;
+  border-bottom: 1px solid #ddd;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+}
+
+main {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  border-top: 1px solid #eee;
+  margin-top: 2rem;
+  color: #666;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+h1, h2, h3 {
+  line-height: 1.2;
+}
+
+a {
+  color: #0070f3;
+}
+
+.meta {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.list-item {
+  margin-bottom: 2rem;
+}

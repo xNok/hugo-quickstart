@@ -1,0 +1,18 @@
+{{ define "main" }}
+<section class="hero">
+  <h1>Welcome to {{ .Site.Title }}</h1>
+  <p>{{ .Site.Params.description | default "A minimal Hugo starter theme." }}</p>
+</section>
+
+<section class="latest-posts">
+  <h2>Latest Posts</h2>
+  <ul>
+    {{ range first 5 .Site.RegularPages }}
+    <li>
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+    </li>
+    {{ end }}
+  </ul>
+</section>
+{{ end }}

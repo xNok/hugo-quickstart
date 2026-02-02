@@ -1,0 +1,9 @@
+name = "Custom Starter Theme"
+description = "A clean skeleton theme for getting started quickly."
+license = "MIT"
+homepage = "https://example.com"
+min_version = "0.55.0"
+
+[author]
+  name = "Your Name"
+  homepage = "https://example.com"
