@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -41,7 +41,7 @@ jobs:
           extended: true
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
@@ -54,7 +54,7 @@ jobs:
         run: echo "version=$(node -p "require('./package.json').devDependencies['@playwright/test']")" >> $GITHUB_OUTPUT
 
       - name: Cache Playwright browsers
-        uses: actions/cache@v5
+        uses: actions/cache@v4
         id: playwright-cache
         with:
           path: ~/.cache/ms-playwright
@@ -68,7 +68,7 @@ jobs:
         run: npm test
 
       - name: Upload test results
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
@@ -83,7 +83,7 @@ jobs:
       KROKI_VERSION: 0.5.0
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           submodules: recursive
           # Clone a Theme from a Private Repository
@@ -91,14 +91,14 @@ jobs:
           #   ${{ secrets.SSH_PRIVATE_KEY_THEME }}
 
       - name: Archive rendered images
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v4
         with:
           name: images
           path: website/static/images/gallery
 
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v4
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
@@ -119,7 +119,7 @@ jobs:
             --baseURL "${{ steps.pages.outputs.base_url }}/"
        
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./website/public
 
