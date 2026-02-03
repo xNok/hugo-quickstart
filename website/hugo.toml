@@ -6,3 +6,17 @@ theme = 'custom-theme'
 [caches]
   [caches.images]
     dir = ':cacheDir/images'
+[[menus.main]]
+  name = 'Getting Started'
+  pageRef = '/getting-started'
+  weight = 10
+
+[[menus.main]]
+  name = 'Testing'
+  pageRef = '/testing'
+  weight = 20
+
+[[menus.main]]
+  name = 'Deployment'
+  pageRef = '/deployment'
+  weight = 30
