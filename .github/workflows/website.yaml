@@ -31,7 +31,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
+        # with:
+        #   # Clone a Theme from a Private Repository
+        #   ssh-key: |
+        #     ${{ secrets.SSH_PRIVATE_KEY_THEME }}
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
