@@ -28,7 +28,7 @@ You can run the tests locally to verify your changes before pushing them.
     ```
 
     This command (configured in `package.json`) will:
-    - Build your Hugo site.
+    - Start your Hugo site in development mode (using `hugo server`).
     - Start a local server.
     - Run the Playwright tests against that server.
 
