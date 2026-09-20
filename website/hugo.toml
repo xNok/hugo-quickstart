@@ -6,6 +6,15 @@ theme = 'custom-theme'
 [caches]
   [caches.images]
     dir = ':cacheDir/images'
+
+[markup]
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = false
+    lineNos = false
+    noClasses = true
+    style = 'github-dark'
+    tabWidth = 4
 [[menus.main]]
   name = 'Getting Started'
   pageRef = '/getting-started'

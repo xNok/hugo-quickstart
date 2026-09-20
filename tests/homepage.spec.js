@@ -41,4 +41,24 @@ test.describe('Website Sanity Checks', () => {
     await expect(page.locator('h1')).toContainText('Sanity Check for your next Hugo deployment');
   });
 
+
+  // Test 4: Verify code block rendering on getting started page
+  test('getting started page renders code blocks correctly', async ({ page }) => {
+    await page.goto('/getting-started/');
+
+    // Check heading
+    await expect(page.locator('h1')).toContainText('Getting Started');
+
+    // Check code blocks exist and are visible
+    const highlight = page.locator('.highlight');
+    await expect(highlight.first()).toBeVisible();
+
+    const codeBlock = page.locator('.highlight pre code');
+    await expect(codeBlock.first()).toContainText('hugo server');
+
+    // Check inline code element exists
+    const inlineCode = page.locator('p code');
+    await expect(inlineCode.first()).toBeVisible();
+    await expect(inlineCode.first()).toHaveText('public');
+  });
 });
