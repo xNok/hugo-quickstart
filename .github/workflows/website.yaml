@@ -31,40 +31,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-        # with:
-        #   # Clone a Theme from a Private Repository
-        #   ssh-key: |
-        #     ${{ secrets.SSH_PRIVATE_KEY_THEME }}
 
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
-        with:
-          hugo-version: '0.155.2'
-          extended: true
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Get Playwright version
-        id: playwright-version
-        run: echo "version=$(node -p "require('./package.json').devDependencies['@playwright/test']")" >> $GITHUB_OUTPUT
-
-      - name: Cache Playwright browsers
-        uses: actions/cache@v5
-        id: playwright-cache
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
-
-      - name: Install Playwright Browsers
-        if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: npx playwright install --with-deps chromium
+      - name: Setup Hugo Environment
+        uses: ./.github/actions/setup-hugo-environment
 
       - name: Run Playwright tests
         run: npm test
@@ -86,10 +55,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-        # with:
-        #   # Clone a Theme from a Private Repository
-        #   ssh-key: |
-        #     ${{ secrets.SSH_PRIVATE_KEY_THEME }}
 
       - name: Archive rendered images
         uses: actions/upload-artifact@v6
@@ -101,11 +66,10 @@ jobs:
         id: pages
         uses: actions/configure-pages@v4
 
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v3
+      - name: Setup Hugo Environment
+        uses: ./.github/actions/setup-hugo-environment
         with:
-          hugo-version: '0.155.2'
-          extended: true
+          install-playwright: 'false'
 
       - name: Build with Hugo
         env:
@@ -123,9 +87,6 @@ jobs:
         uses: actions/upload-pages-artifact@v4
         with:
           path: ./website/public
-
-      # Commit all changed files back to the repository
-      # - uses: stefanzweifel/git-auto-commit-action@v5
 
   deploy:
     if: github.ref == 'refs/heads/main'
