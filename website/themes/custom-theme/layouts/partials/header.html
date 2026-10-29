@@ -1,7 +1,11 @@
-<header>
-  <nav>
-    <a href="{{ .Site.Home.RelPermalink }}" class="logo">{{ .Site.Title }}</a>
-    <ul>
+<header class="site-header">
+  <nav class="site-nav">
+    <a href="{{ .Site.Home.RelPermalink }}" class="logo">
+      <span class="logo-mark">&sect;</span>
+      <span class="logo-text">{{ .Site.Title }}</span>
+      <span class="logo-badge">VOL. I</span>
+    </a>
+    <ul class="nav-links">
       {{ range .Site.Menus.main }}
       <li><a href="{{ .URL }}">{{ .Name }}</a></li>
       {{ end }}
