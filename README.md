@@ -2,16 +2,16 @@
 
 This repository provides a template for creating a Hugo-based static site, optimized for deployment as GitHub Pages. It offers a streamlined setup for developers to quickly launch a new website with minimal configuration. The structure includes a pre-configured `hugo.toml` file and essential directories, allowing you to focus on content creation from the start.
 
-This project is designed for seamless development in cloud-based environments. You can use it with Gitpod or GitHub Codespaces to get a ready-to-use development environment in seconds, without needing to install any dependencies on your local machine.
+This project is designed for seamless development in cloud-based environments and supports automated AI software engineering workflows powered by **Jules**.
 
 ## Key Features
 
 - **Quick Setup**: Clone the repository and start your Hugo site instantly.
 - **GitHub Pages Integration**: Pre-configured for easy deployment.
+- **Jules AI Workflows**: Out-of-the-box Jules AI agent integration with specialized sub-agent patterns (e.g. Palette Agent).
+- **Reusable Composite Action**: Shared GitHub Action (`.github/actions/setup-hugo-environment`) for consistent Hugo, Node, and Playwright setup across workflows.
 - **Cloud-Ready**: Works out-of-the-box with Gitpod and GitHub Codespaces.
 - **Customizable**: Easily extendable with your own content and themes.
-
-This template is ideal for developers, bloggers, and content creators who want a fast and efficient way to build and deploy static websites using Hugo.
 
 ## Getting Started
 
@@ -42,7 +42,7 @@ This template includes Playwright end-to-end tests to verify that the site build
 To run the Playwright tests locally, you'll need to install Node.js dependencies first:
 
 ```bash
-npm install
+npm ci
 ```
 
 Then run the tests:
@@ -60,6 +60,33 @@ The tests will automatically start a Hugo development server, run the tests agai
 - `npm run test:ui` - Run tests in interactive UI mode
 
 The tests run automatically in GitHub Actions on every pull request and push to main, ensuring the site works correctly before deployment.
+
+## Jules AI Integration & Agent Patterns
+
+This template comes with built-in patterns for integrating your repository with **Jules** and AI coding agents.
+
+### 1. Out-of-the-box Jules Workflow
+
+The workflow at `.github/workflows/jules.yaml` provides automated test and build verification whenever Jules or automated workflows create or update pull requests.
+
+### 2. Reusable Composite Setup Action
+
+Instead of duplicating setup logic across CI and AI workflows, use the composite action:
+
+```yaml
+- name: Setup Hugo & Test Environment
+  uses: ./.github/actions/setup-hugo-environment
+  with:
+    hugo-version: '0.155.2'
+    install-playwright: 'true'
+```
+
+This single step prepares Hugo extended, Node.js, dependencies (`npm ci`), and Playwright browsers with caching.
+
+### 3. Agent Instructions (`AGENTS.md`) & The Palette Agent Pattern
+
+- **`AGENTS.md`**: Positioned at the repository root, `AGENTS.md` instructs Jules on project structure, commands, coding standards, and mandatory pre-commit verification steps.
+- **Palette Agent Example (`.github/agents/palette-agent.md`)**: Demonstrates a domain-specific agent pattern focused on CSS styling, theme design tokens, and color palette management. You can use this example to define custom agent personas (e.g. content creation agent, SEO agent, theme palette agent) for your own projects.
 
 ## Cloud-Based Development
 

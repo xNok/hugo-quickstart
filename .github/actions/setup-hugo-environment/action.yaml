@@ -1,0 +1,54 @@
+name: 'Setup Hugo Environment'
+description: 'Sets up Hugo, Node.js, dependencies, and Playwright browsers for testing and building Hugo sites'
+
+inputs:
+  hugo-version:
+    description: 'Hugo version to install'
+    required: false
+    default: '0.155.2'
+  node-version:
+    description: 'Node.js version to install'
+    required: false
+    default: '20'
+  install-playwright:
+    description: 'Whether to install Playwright browser dependencies'
+    required: false
+    default: 'true'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Hugo
+      uses: peaceiris/actions-hugo@v3
+      with:
+        hugo-version: ${{ inputs.hugo-version }}
+        extended: true
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: 'npm'
+
+    - name: Install dependencies
+      shell: bash
+      run: npm ci
+
+    - name: Get Playwright version
+      if: inputs.install-playwright == 'true'
+      id: playwright-version
+      shell: bash
+      run: echo "version=$(node -p "require('./package.json').devDependencies['@playwright/test']")" >> $GITHUB_OUTPUT
+
+    - name: Cache Playwright browsers
+      if: inputs.install-playwright == 'true'
+      uses: actions/cache@v5
+      id: playwright-cache
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
+
+    - name: Install Playwright Browsers
+      if: inputs.install-playwright == 'true' && steps.playwright-cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: npx playwright install --with-deps chromium
