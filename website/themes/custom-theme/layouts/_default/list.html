@@ -1,14 +1,21 @@
 {{ define "main" }}
-<h1>{{ .Title }}</h1>
-<div class="list">
-  {{ range .Pages }}
+<header class="page-header">
+  <span class="meta-kicker">INDEX // ARCHIVE</span>
+  <h1 class="page-title">{{ .Title }}</h1>
+</header>
+
+<div class="list-container">
+  {{ range $index, $page := .Pages }}
   <article class="list-item">
-    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
-    <div class="meta">
-      <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "January 2, 2006" }}</time>
+    <div class="list-item-meta">
+      <span class="item-num">{{ printf "%02d" (add $index 1) }}</span>
+      <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">{{ .Date.Format "Jan 02, 2006" }}</time>
     </div>
-    <div class="summary">
-      {{ .Summary }}
+    <div class="list-item-body">
+      <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+      <div class="summary">
+        {{ .Summary }}
+      </div>
     </div>
   </article>
   {{ end }}

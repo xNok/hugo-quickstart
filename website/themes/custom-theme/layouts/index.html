@@ -1,19 +1,40 @@
 {{ define "main" }}
-<section class="hero">
-  <h1>{{ .Title }}</h1>
-  <div class="content">
+<section class="hero-section">
+  <div class="hero-header">
+    <span class="meta-kicker">ISSUE // 001</span>
+    <h1 class="hero-title">{{ .Title }}</h1>
+  </div>
+  <div class="content hero-body">
     {{ .Content }}
   </div>
 </section>
 
-<section class="pages-list">
-  <h2>Pages</h2>
-  <ul>
-    {{ range .Site.RegularPages }}
-    <li>
-      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-    </li>
+<div class="retro-divider">
+  <span class="divider-line"></span>
+  <span class="divider-symbol">&bull; &bull; &bull;</span>
+  <span class="divider-line"></span>
+</div>
+
+<section class="pages-section">
+  <div class="section-header">
+    <h2 class="section-title">Directory</h2>
+    <span class="section-count">{{ len .Site.RegularPages }} ENTRIES</span>
+  </div>
+  <div class="pages-grid">
+    {{ range $index, $page := .Site.RegularPages }}
+    <article class="page-card">
+      <a href="{{ $page.RelPermalink }}" class="page-card-link">
+        <span class="page-num">{{ printf "%02d" (add $index 1) }}</span>
+        <div class="page-card-content">
+          <h3 class="page-card-title">{{ $page.Title }}</h3>
+          {{ with $page.Summary }}
+          <p class="page-card-summary">{{ . | plainify | truncate 110 }}</p>
+          {{ end }}
+        </div>
+        <span class="page-card-arrow">&rarr;</span>
+      </a>
+    </article>
     {{ end }}
-  </ul>
+  </div>
 </section>
 {{ end }}
